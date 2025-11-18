@@ -204,6 +204,16 @@ Inning::Inning(int i) { // keeps track of events during inning
 		}
 		else if (userstring == "Hit" || userstring == "hit") {
 			incrementHits();
+			cout << "Did a run score? ";
+			getline(cin, userstring);
+			if (userstring == "yes" || userstring == "Yes") {
+				int amount;
+				cout << "How many?: ";
+				cin >> amount;
+				for (int i = 0; i < amount; i++) {
+					incrementRuns();
+				}
+			}
 		}
 		else if (userstring == "Run" || userstring == "run") {
 			int amount;
