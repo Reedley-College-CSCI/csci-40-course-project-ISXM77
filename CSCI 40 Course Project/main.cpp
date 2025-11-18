@@ -119,7 +119,7 @@ int main() {
 		<< HomeInning8.printInning()
 		<< "  |  "
 		<< HomeInning9.printInning()
-		<< "  |Final|  H  |" << endl;
+		<< "  |  R  |  H  |" << endl;
 	cout << "-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|" << endl;
 	cout << "  A  |  "
 		<< AwayInning1.printRuns()
