@@ -12,221 +12,233 @@
 #include <iomanip>
 using namespace std;
 
-class Inning {
+class Stats {
 public:
-	// Function Prototypes
-	void incrementHits(); 
-	void incrementRuns();
-	void incrementOuts();
-	int printInning();
-	int printHits();
-	int printRuns();
-	int printOuts();
-	void resetOuts();
-	Inning(int i);
-private:
-	// Event variables
-	string userstring;
 	int inning = 1;
+	int outs = 0;
 	int hits = 0;
 	int runs = 0;
-	int outs = 0;
+};
+class Home {
+public:
+	Home(int i);
+	Stats homestats[10];
+};
+class Away {
+public:
+	Away(int i);
+	Stats awaystats[10];
 };
 
 int main() {
-	Inning AwayInning1(1); // Inning 1
-	Inning HomeInning1(1);
-	void resetOuts();
-	Inning AwayInning2(2); // Inning 1
-	Inning HomeInning2(2); 
-	void resetOuts();
-	Inning AwayInning3(3); // Inning 3
-	Inning HomeInning3(3);
-	void resetOuts();
-	Inning AwayInning4(4); // Inning 4
-	Inning HomeInning4(4);
-	void resetOuts();
-	Inning AwayInning5(5); // Inning 5
-	Inning HomeInning5(5);
-	void resetOuts();
-	Inning AwayInning6(6); // Inning 6
-	Inning HomeInning6(6);
-	void resetOuts();
-	Inning AwayInning7(7); // Inning 7
-	Inning HomeInning7(7);
-	void resetOuts();
-	Inning AwayInning8(8); // Inning 8
-	Inning HomeInning8(8);
-	void resetOuts();
-	Inning AwayInning9(9); // Inning 9
-	Inning HomeInning9(9);
 
-	int runtotalHome = HomeInning1.printRuns() + // adds together all runs for Home side
-		HomeInning2.printRuns() +
-		HomeInning3.printRuns() +
-		HomeInning4.printRuns() +
-		HomeInning5.printRuns() +
-		HomeInning6.printRuns() +
-		HomeInning7.printRuns() +
-		HomeInning8.printRuns() +
-		HomeInning9.printRuns();
-	int runtotalAway = AwayInning1.printRuns() + // adds together all runs for Away side
-		AwayInning2.printRuns() +
-		AwayInning3.printRuns() +
-		AwayInning4.printRuns() +
-		AwayInning5.printRuns() +
-		AwayInning6.printRuns() +
-		AwayInning7.printRuns() +
-		AwayInning8.printRuns() +
-		AwayInning9.printRuns();
-	int totalHitsAway = AwayInning1.printHits() + // adds together all hits for Away side
-		AwayInning2.printHits() +
-		AwayInning3.printHits() +
-		AwayInning4.printHits() +
-		AwayInning5.printHits() +
-		AwayInning6.printHits() +
-		AwayInning7.printHits() +
-		AwayInning8.printHits() +
-		AwayInning9.printHits();
-	int totalHitsHome = HomeInning1.printHits() + // adds together all hits for Home side
-		HomeInning2.printHits() +
-		HomeInning3.printHits() +
-		HomeInning4.printHits() +
-		HomeInning5.printHits() +
-		HomeInning6.printHits() +
-		HomeInning7.printHits() +
-		HomeInning8.printHits() +
-		HomeInning9.printHits();
+	Away Away1(1);
+	Home Home1(1);
+	Away Away2(2);
+	Home Home2(2);
+	Away Away3(3);
+	Home Home3(3);
+	Away Away4(4);
+	Home Home4(4);
+	Away Away5(5);
+	Home Home5(5);
+	Away Away6(6);
+	Home Home6(6);
+	Away Away7(7);
+	Home Home7(7);
+	Away Away8(8);
+	Home Home8(8);
+	Away Away9(9);
+	Home Home9(9);
 
-	cout << endl << endl;
-	
-	// Scoreboard Display
-	cout << "     |  " 
-		<< HomeInning1.printInning()
+	int totalrunsaway =
+		Away1.awaystats[1].runs + 
+		Away2.awaystats[2].runs +
+		Away3.awaystats[3].runs +
+		Away4.awaystats[4].runs +
+		Away5.awaystats[5].runs +
+		Away6.awaystats[6].runs +
+		Away7.awaystats[7].runs +
+		Away8.awaystats[8].runs +
+		Away9.awaystats[9].runs;
+
+	int totalrunshome =
+		Home1.homestats[1].runs + 
+		Home2.homestats[2].runs +
+		Home3.homestats[3].runs +
+		Home4.homestats[4].runs +
+		Home5.homestats[5].runs +
+		Home6.homestats[6].runs +
+		Home7.homestats[7].runs +
+		Home8.homestats[8].runs +
+		Home9.homestats[9].runs;
+
+	int totalhitsaway = 
+		Away1.awaystats[1].hits + 
+		Away2.awaystats[2].hits +
+		Away3.awaystats[3].hits +
+		Away4.awaystats[4].hits +
+		Away5.awaystats[5].hits +
+		Away6.awaystats[6].hits +
+		Away7.awaystats[7].hits +
+		Away8.awaystats[8].hits +
+		Away9.awaystats[9].hits;
+
+	int totalhitshome = 
+		Home1.homestats[1].hits +
+		Home2.homestats[2].hits +
+		Home3.homestats[3].hits +
+		Home4.homestats[4].hits +
+		Home5.homestats[5].hits +
+		Home6.homestats[6].hits +
+		Home7.homestats[7].hits +
+		Home8.homestats[8].hits +
+		Home9.homestats[9].hits;
+
+	cout << endl;
+
+	cout << "     |  "
+		<< Home1.homestats[1].inning
 		<< "  |  "
-		<< HomeInning2.printInning()
+		<< Home2.homestats[2].inning
 		<< "  |  "
-		<< HomeInning3.printInning()
+		<< Home3.homestats[3].inning
 		<< "  |  "
-		<< HomeInning4.printInning()
+		<< Home4.homestats[4].inning
 		<< "  |  "
-		<< HomeInning5.printInning()
+		<< Home5.homestats[5].inning
 		<< "  |  "
-		<< HomeInning6.printInning()
+		<< Home6.homestats[6].inning
 		<< "  |  "
-		<< HomeInning7.printInning()
+		<< Home7.homestats[7].inning
 		<< "  |  "
-		<< HomeInning8.printInning()
+		<< Home8.homestats[8].inning
 		<< "  |  "
-		<< HomeInning9.printInning()
+		<< Home9.homestats[9].inning
 		<< "  |  R  |  H  |" << endl;
 	cout << "-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|" << endl;
 	cout << "  A  |  "
-		<< AwayInning1.printRuns()
+		<< Away1.awaystats[1].runs
 		<< "  |  "
-		<< AwayInning2.printRuns()
+		<< Away2.awaystats[2].runs
 		<< "  |  "
-		<< AwayInning3.printRuns()
+		<< Away3.awaystats[3].runs
 		<< "  |  "
-		<< AwayInning4.printRuns()
+		<< Away4.awaystats[4].runs
 		<< "  |  "
-		<< AwayInning5.printRuns()
+		<< Away5.awaystats[5].runs
 		<< "  |  "
-		<< AwayInning6.printRuns()
+		<< Away6.awaystats[6].runs
 		<< "  |  "
-		<< AwayInning7.printRuns()
+		<< Away7.awaystats[7].runs
 		<< "  |  "
-		<< AwayInning8.printRuns()
+		<< Away8.awaystats[8].runs
 		<< "  |  "
-		<< AwayInning9.printRuns()
+		<< Away9.awaystats[9].runs
 		<< "  |  "
-		<< runtotalAway
-		<< "  |  " 
-		<< totalHitsAway 
+		<< totalrunsaway
+		<< "  |  "
+		<< totalhitsaway
 		<< "  |" << endl;
 	cout << "-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|" << endl;
 	cout << "  H  |  "
-		<< HomeInning1.printRuns()
+		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< HomeInning2.printRuns()
+		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< HomeInning3.printRuns()
+		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< HomeInning4.printRuns()
+		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< HomeInning5.printRuns()
+		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< HomeInning6.printRuns()
+		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< HomeInning7.printRuns()
+		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< HomeInning8.printRuns()
+		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< HomeInning9.printRuns()
+		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< runtotalHome
-		<< "  |  " 
-		<< totalHitsHome 
+		<< totalrunshome
+		<< "  |  "
+		<< totalhitshome
 		<< "  |" << endl;
-}
-// Function Definitions
-void Inning::resetOuts() {
-	outs = 0;
-}
-int Inning::printInning() {
-	return inning;
-}
-int Inning::printHits() {
-	return hits;
-}
-int Inning::printOuts() {
-	return outs;
-}
-int Inning::printRuns() {
-	return runs;
-}
-void Inning::incrementHits() {
-	hits += 1;
-}
-void Inning::incrementOuts() {
-	outs += 1;
-}
-void Inning::incrementRuns() {
-	runs += 1;
-}
-Inning::Inning(int i) { // keeps track of events during inning
-	inning = i;
-	while (printOuts() < 3) {
-		cout << "What is the result of the next play in inning #" << i << ": ";
-		getline(cin, userstring);
-		if (userstring == "Out" || userstring == "out") {
-			incrementOuts();
-		}
-		else if (userstring == "Hit" || userstring == "hit") {
-			incrementHits();
-			cout << "Did a run score? ";
-			getline(cin, userstring);
-			if (userstring == "yes" || userstring == "Yes") {
-				int amount;
-				cout << "How many?: ";
-				cin >> amount;
-				for (int i = 0; i < amount; i++) {
-					incrementRuns();
-				}
-			}
-		}
-		else if (userstring == "Walk" || userstring == "walk") {
-			cout << "Did a run score? ";
-			getline(cin, userstring);
-			if (userstring == "yes" || userstring == "Yes") {
-				int amount;
-				cout << "How many?: ";
-				cin >> amount;
-				for (int i = 0; i < amount; i++) {
-					incrementRuns();
-				}
-			}
-		}
 
+
+	return 0;
+}
+Home::Home(int i) {
+	homestats[i].inning = i;
+	string userstring;
+	while (homestats[i].outs != 3) {
+		cout << "What is the result of the next play in the bottom of inning #" << i << ": ";
+		getline(cin, userstring);
+		if (userstring == "out" || userstring == "Out") {
+			homestats[i].outs += 1;
+		}
+		else if (userstring == "hit" || userstring == "Hit") {
+			int count;
+			homestats[i].hits += 1;
+			cout << "Runs Scored: ";
+			cin >> count;
+			while (count > 4) {
+				cout << "Too many, Try Again: ";
+				cin >> count;
+			}
+			for (int i = 0; i < count; i++) {
+				homestats[i].runs += 1;
+			}
+		}
+		else if (userstring == "walk" || userstring == "Walk") {
+			int count;
+			cout << "Runs Scored: ";
+			cin >> count;
+			while (count > 2) {
+				cout << "Too many, Try Again: ";
+				cin >> count;
+			}
+			for (int i = 0; i < count; i++) {
+				homestats[i].runs += 1;
+			}
+
+		}
+	}
+}
+Away::Away(int i) {
+	awaystats[i].inning = i;
+	string userstring;
+	while (awaystats[i].outs != 3) {
+		cout << "What is the result of the next play in the top of inning #" << i << ": ";
+		getline(cin, userstring);
+		if (userstring == "out" || userstring == "Out") {
+			awaystats[i].outs += 1;
+		}
+		else if (userstring == "hit" || userstring == "Hit") {
+			int count;
+			awaystats[i].hits += 1;
+			cout << "Runs Scored: ";
+			cin >> count;
+			while (count > 4) {
+				cout << "Too many, Try Again: ";
+				cin >> count;
+			}
+			for (int i = 0; i < count; i++) {
+				awaystats[i].runs += 1;
+			}
+		}
+		else if (userstring == "walk" || userstring == "Walk") {
+			int count;
+			cout << "Runs Scored: ";
+			cin >> count;
+			while (count > 2) {
+				cout << "Too many, Try Again: ";
+				cin >> count;
+			}
+			for (int i = 0; i < count; i++) {
+				awaystats[i].runs += 1;
+			}
+
+		}
 	}
 }
