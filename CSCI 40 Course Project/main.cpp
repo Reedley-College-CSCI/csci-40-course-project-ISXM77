@@ -12,19 +12,19 @@
 #include <iomanip>
 using namespace std;
 
-class Stats {
+class Stats { // class holding stats to be tracked 
 public:
 	int inning = 1;
 	int outs = 0;
 	int hits = 0;
 	int runs = 0;
 };
-class Home {
+class Home { // class for Home team's half inning
 public:
 	Home(int i);
 	Stats homestats[10];
 };
-class Away {
+class Away { // class for Away team's half inning
 public:
 	Away(int i);
 	Stats awaystats[10];
@@ -32,7 +32,7 @@ public:
 
 int main() {
 
-	Away Away1(1);
+	Away Away1(1); // 9 Home and 9 Away half innings
 	Home Home1(1);
 	Away Away2(2);
 	Home Home2(2);
@@ -51,7 +51,7 @@ int main() {
 	Away Away9(9);
 	Home Home9(9);
 
-	int totalrunsaway =
+	int totalrunsaway = // totals runs scored for away team
 		Away1.awaystats[1].runs + 
 		Away2.awaystats[2].runs +
 		Away3.awaystats[3].runs +
@@ -62,7 +62,7 @@ int main() {
 		Away8.awaystats[8].runs +
 		Away9.awaystats[9].runs;
 
-	int totalrunshome =
+	int totalrunshome = // totals runs scored for home team
 		Home1.homestats[1].runs + 
 		Home2.homestats[2].runs +
 		Home3.homestats[3].runs +
@@ -73,7 +73,7 @@ int main() {
 		Home8.homestats[8].runs +
 		Home9.homestats[9].runs;
 
-	int totalhitsaway = 
+	int totalhitsaway = // totals hits for away team
 		Away1.awaystats[1].hits + 
 		Away2.awaystats[2].hits +
 		Away3.awaystats[3].hits +
@@ -84,7 +84,7 @@ int main() {
 		Away8.awaystats[8].hits +
 		Away9.awaystats[9].hits;
 
-	int totalhitshome = 
+	int totalhitshome = // totals hits for home team
 		Home1.homestats[1].hits +
 		Home2.homestats[2].hits +
 		Home3.homestats[3].hits +
@@ -97,6 +97,7 @@ int main() {
 
 	cout << endl;
 
+	// Scoreboard output
 	cout << "     |  "
 		<< Home1.homestats[1].inning
 		<< "  |  "
@@ -144,21 +145,21 @@ int main() {
 	cout << "  H  |  "
 		<< Home1.homestats[1].runs
 		<< "  |  "
-		<< Home1.homestats[1].runs
+		<< Home2.homestats[2].runs
 		<< "  |  "
-		<< Home1.homestats[1].runs
+		<< Home3.homestats[3].runs
 		<< "  |  "
-		<< Home1.homestats[1].runs
+		<< Home4.homestats[4].runs
 		<< "  |  "
-		<< Home1.homestats[1].runs
+		<< Home5.homestats[5].runs
 		<< "  |  "
-		<< Home1.homestats[1].runs
+		<< Home6.homestats[6].runs
 		<< "  |  "
-		<< Home1.homestats[1].runs
+		<< Home7.homestats[7].runs
 		<< "  |  "
-		<< Home1.homestats[1].runs
+		<< Home8.homestats[8].runs
 		<< "  |  "
-		<< Home1.homestats[1].runs
+		<< Home9.homestats[9].runs
 		<< "  |  "
 		<< totalrunshome
 		<< "  |  "
@@ -168,7 +169,7 @@ int main() {
 
 	return 0;
 }
-Home::Home(int i) {
+Home::Home(int i) { // constructor for Home half inning
 	homestats[i].inning = i;
 	string userstring;
 	while (homestats[i].outs != 3) {
@@ -205,7 +206,7 @@ Home::Home(int i) {
 		}
 	}
 }
-Away::Away(int i) {
+Away::Away(int i) { // constructor for away half inning
 	awaystats[i].inning = i;
 	string userstring;
 	while (awaystats[i].outs != 3) {
