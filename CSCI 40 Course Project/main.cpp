@@ -12,165 +12,77 @@
 #include <iomanip>
 using namespace std;
 
-class Stats { // class holding stats to be tracked 
-public:
-	int inning = 1;
+struct Stats { // struct holding stat values
 	int outs = 0;
 	int hits = 0;
 	int runs = 0;
 };
-class Home { // class for Home team's half inning
+
+class Game { // class holding functions for entire baseball game
 public:
-	Home(int i);
-	Stats homestats[10];
-};
-class Away { // class for Away team's half inning
-public:
-	Away(int i);
-	Stats awaystats[10];
+	int inning = 0;
+	void Away(int count);
+	void Home(int count);
+	int printTotalAwayRuns(int count);
+	int printTotalHomeRuns(int count);
+	int printTotalAwayHits(int count);
+	int printTotalHomeHits(int count);
+	void FirstNineInnings();
+	void ExtraInnings();
+	void printScoreboard();
+	Stats homestats[100]; // array of structs to holds stats for home and away
+	Stats awaystats[100];
 };
 
 int main() {
-
-	Away Away1(1); // 9 Home and 9 Away half innings
-	Home Home1(1);
-	Away Away2(2);
-	Home Home2(2);
-	Away Away3(3);
-	Home Home3(3);
-	Away Away4(4);
-	Home Home4(4);
-	Away Away5(5);
-	Home Home5(5);
-	Away Away6(6);
-	Home Home6(6);
-	Away Away7(7);
-	Home Home7(7);
-	Away Away8(8);
-	Home Home8(8);
-	Away Away9(9);
-	Home Home9(9);
-
-	int totalrunsaway = // totals runs scored for away team
-		Away1.awaystats[1].runs + 
-		Away2.awaystats[2].runs +
-		Away3.awaystats[3].runs +
-		Away4.awaystats[4].runs +
-		Away5.awaystats[5].runs +
-		Away6.awaystats[6].runs +
-		Away7.awaystats[7].runs +
-		Away8.awaystats[8].runs +
-		Away9.awaystats[9].runs;
-
-	int totalrunshome = // totals runs scored for home team
-		Home1.homestats[1].runs + 
-		Home2.homestats[2].runs +
-		Home3.homestats[3].runs +
-		Home4.homestats[4].runs +
-		Home5.homestats[5].runs +
-		Home6.homestats[6].runs +
-		Home7.homestats[7].runs +
-		Home8.homestats[8].runs +
-		Home9.homestats[9].runs;
-
-	int totalhitsaway = // totals hits for away team
-		Away1.awaystats[1].hits + 
-		Away2.awaystats[2].hits +
-		Away3.awaystats[3].hits +
-		Away4.awaystats[4].hits +
-		Away5.awaystats[5].hits +
-		Away6.awaystats[6].hits +
-		Away7.awaystats[7].hits +
-		Away8.awaystats[8].hits +
-		Away9.awaystats[9].hits;
-
-	int totalhitshome = // totals hits for home team
-		Home1.homestats[1].hits +
-		Home2.homestats[2].hits +
-		Home3.homestats[3].hits +
-		Home4.homestats[4].hits +
-		Home5.homestats[5].hits +
-		Home6.homestats[6].hits +
-		Home7.homestats[7].hits +
-		Home8.homestats[8].hits +
-		Home9.homestats[9].hits;
-
-	cout << endl;
-
-	// Scoreboard output
-	cout << "     |  "
-		<< Home1.homestats[1].inning
-		<< "  |  "
-		<< Home2.homestats[2].inning
-		<< "  |  "
-		<< Home3.homestats[3].inning
-		<< "  |  "
-		<< Home4.homestats[4].inning
-		<< "  |  "
-		<< Home5.homestats[5].inning
-		<< "  |  "
-		<< Home6.homestats[6].inning
-		<< "  |  "
-		<< Home7.homestats[7].inning
-		<< "  |  "
-		<< Home8.homestats[8].inning
-		<< "  |  "
-		<< Home9.homestats[9].inning
-		<< "  |  R  |  H  |" << endl;
-	cout << "-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|" << endl;
-	cout << "  A  |  "
-		<< Away1.awaystats[1].runs
-		<< "  |  "
-		<< Away2.awaystats[2].runs
-		<< "  |  "
-		<< Away3.awaystats[3].runs
-		<< "  |  "
-		<< Away4.awaystats[4].runs
-		<< "  |  "
-		<< Away5.awaystats[5].runs
-		<< "  |  "
-		<< Away6.awaystats[6].runs
-		<< "  |  "
-		<< Away7.awaystats[7].runs
-		<< "  |  "
-		<< Away8.awaystats[8].runs
-		<< "  |  "
-		<< Away9.awaystats[9].runs
-		<< "  |  "
-		<< totalrunsaway
-		<< "  |  "
-		<< totalhitsaway
-		<< "  |" << endl;
-	cout << "-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|" << endl;
-	cout << "  H  |  "
-		<< Home1.homestats[1].runs
-		<< "  |  "
-		<< Home2.homestats[2].runs
-		<< "  |  "
-		<< Home3.homestats[3].runs
-		<< "  |  "
-		<< Home4.homestats[4].runs
-		<< "  |  "
-		<< Home5.homestats[5].runs
-		<< "  |  "
-		<< Home6.homestats[6].runs
-		<< "  |  "
-		<< Home7.homestats[7].runs
-		<< "  |  "
-		<< Home8.homestats[8].runs
-		<< "  |  "
-		<< Home9.homestats[9].runs
-		<< "  |  "
-		<< totalrunshome
-		<< "  |  "
-		<< totalhitshome
-		<< "  |" << endl;
-
+	Game game; // Function calls
+	game.FirstNineInnings();
+	game.ExtraInnings();
+	game.printScoreboard();
 
 	return 0;
 }
-Home::Home(int i) { // constructor for Home half inning
-	homestats[i].inning = i;
+
+void Game::printScoreboard() {
+	cout << "     |  ";
+	for (int i = 1; i <= 9; i++) {
+		cout << i << "  |  ";
+	}
+	if (inning > 9) {
+		for (int i = 10; i <= inning; i++) {
+			cout << i << " |  ";
+		}
+	}
+	cout << "R  |  H  |" << endl;
+
+	cout << "-----|";
+	for (int i = 1; i <= inning; i++) {
+		cout << "-----|";
+	}
+	cout << "-----|-----|" << endl;
+
+	cout << "  A  |  ";
+	for (int i = 1; i <= inning; i++) {
+		cout << awaystats[i].runs << "  |  ";
+	}
+	cout << printTotalAwayRuns(inning) << "  |  "
+		<< printTotalAwayHits(inning) << "  |  " << endl;
+
+	cout << "-----|";
+	for (int i = 1; i <= inning; i++) {
+		cout << "-----|";
+	}
+	cout << "-----|-----|" << endl;
+
+	cout << "  H  |  ";
+	for (int i = 1; i <= inning; i++) {
+		cout << homestats[i].runs << "  |  ";
+	}
+	cout << printTotalHomeRuns(inning) << "  |  "
+		<< printTotalHomeHits(inning) << "  |  " << endl;
+}
+void Game::Home(int count) {
+	int i = count;
 	string userstring;
 	while (homestats[i].outs != 3) {
 		cout << "What is the result of the next play in the bottom of inning #" << i << ": ";
@@ -179,35 +91,35 @@ Home::Home(int i) { // constructor for Home half inning
 			homestats[i].outs += 1;
 		}
 		else if (userstring == "hit" || userstring == "Hit") {
-			int count;
+			int runsScored;
 			homestats[i].hits += 1;
 			cout << "Runs Scored: ";
-			cin >> count;
-			while (count > 4) {
+			cin >> runsScored;
+			cin.ignore();
+			while (runsScored > 4) {
 				cout << "Too many, Try Again: ";
-				cin >> count;
+				cin >> runsScored;
+				cin.ignore();
 			}
-			for (int i = 0; i < count; i++) {
-				homestats[i].runs += 1;
-			}
+			homestats[i].runs += runsScored;
+
 		}
 		else if (userstring == "walk" || userstring == "Walk") {
-			int count;
+			int runsScored;
 			cout << "Runs Scored: ";
-			cin >> count;
-			while (count > 2) {
+			cin >> runsScored;
+			cin.ignore();
+			while (runsScored > 2) {
 				cout << "Too many, Try Again: ";
 				cin >> count;
+				cin.ignore();
 			}
-			for (int i = 0; i < count; i++) {
-				homestats[i].runs += 1;
-			}
-
+			homestats[i].runs += runsScored;
 		}
 	}
 }
-Away::Away(int i) { // constructor for away half inning
-	awaystats[i].inning = i;
+void Game::Away(int count) {
+	int i = count;
 	string userstring;
 	while (awaystats[i].outs != 3) {
 		cout << "What is the result of the next play in the top of inning #" << i << ": ";
@@ -216,30 +128,79 @@ Away::Away(int i) { // constructor for away half inning
 			awaystats[i].outs += 1;
 		}
 		else if (userstring == "hit" || userstring == "Hit") {
-			int count;
+			int runsScored;
 			awaystats[i].hits += 1;
 			cout << "Runs Scored: ";
-			cin >> count;
-			while (count > 4) {
+			cin >> runsScored;
+			cin.ignore();
+			while (runsScored > 4) {
 				cout << "Too many, Try Again: ";
-				cin >> count;
+				cin >> runsScored;
+				cin.ignore();
 			}
-			for (int i = 0; i < count; i++) {
-				awaystats[i].runs += 1;
-			}
+			awaystats[i].runs += runsScored;
 		}
 		else if (userstring == "walk" || userstring == "Walk") {
-			int count;
+			int runsScored;
 			cout << "Runs Scored: ";
-			cin >> count;
-			while (count > 2) {
+			cin >> runsScored;
+			cin.ignore();
+			while (runsScored > 2) {
 				cout << "Too many, Try Again: ";
-				cin >> count;
+				cin >> runsScored;
+				cin.ignore();
 			}
-			for (int i = 0; i < count; i++) {
-				awaystats[i].runs += 1;
-			}
-
+			awaystats[i].runs += runsScored;
 		}
+	}
+}
+int Game::printTotalAwayRuns(int count) {
+	int totalRunsAway = 0;
+	for (int i = 1; i <= count; i++) {
+		totalRunsAway += awaystats[i].runs;
+	}
+	return totalRunsAway;
+}
+int Game::printTotalHomeRuns(int count) {
+	int totalRunsHome = 0;
+	for (int i = 1; i <= count; i++) {
+		totalRunsHome += homestats[i].runs;
+	}
+	return totalRunsHome;
+}
+int Game::printTotalAwayHits(int count) {
+	int totalHitsAway = 0;
+	for (int i = 1; i <= count; i++) {
+		totalHitsAway += awaystats[i].hits;
+	}
+	return totalHitsAway;
+}
+int Game::printTotalHomeHits(int count) {
+	int totalHitsHome = 0;
+	for (int i = 1; i <= count; i++) {
+		totalHitsHome += homestats[i].hits;
+	}
+	return totalHitsHome;
+}
+void Game::FirstNineInnings() {
+	for (int i = 1; i <= 9; i++) {
+		Away(i);
+		Home(i);
+		inning = i;
+	}
+}
+void Game::ExtraInnings() {
+	if (printTotalAwayRuns(9) != printTotalHomeRuns(9)) {
+		return;
+	}
+	else {
+		int i = 10;
+		while (printTotalAwayRuns(i) == printTotalHomeRuns(i)) {
+			Away(i);
+			Home(i);
+			i++;
+		}
+		inning = i - 1;
+		return;
 	}
 }
