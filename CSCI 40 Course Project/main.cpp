@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 
 struct Stats { // struct holding stat values
@@ -29,57 +30,78 @@ public:
 	int printTotalHomeHits(int count);
 	void FirstNineInnings();
 	void ExtraInnings();
-	void printScoreboard();
-	Stats homestats[100]; // array of structs to holds stats for home and away
-	Stats awaystats[100];
+	string printScoreboard();
+	Stats homestats[99]; // array of structs to holds stats for home and away
+	Stats awaystats[99];
 };
 
 int main() {
 	Game game; // Function calls
 	game.FirstNineInnings();
 	game.ExtraInnings();
-	game.printScoreboard();
+	cout << game.printScoreboard();
+
+	ofstream outFile("scoreboard.txt");
+	if (outFile.is_open()) {
+		outFile << game.printScoreboard();
+		outFile.close();
+	}
+	else {
+		cout << "Error: unable to open file: scoreboard.txt" << endl;
+		return -1;
+	}
+	
 
 	return 0;
 }
 
-void Game::printScoreboard() {
-	cout << "     |  ";
+string Game::printScoreboard() {
+	string scoreboard = "     |  ";
 	for (int i = 1; i <= 9; i++) {
-		cout << i << "  |  ";
+		scoreboard += to_string(i);
+		scoreboard += "  |  ";
 	}
 	if (inning > 9) {
 		for (int i = 10; i <= inning; i++) {
-			cout << i << " |  ";
+			scoreboard += to_string(i);
+			scoreboard += " |  ";
 		}
 	}
-	cout << "R  |  H  |" << endl;
+	scoreboard += "R  |  H  |\n";
 
-	cout << "-----|";
+	scoreboard += "-----|";
 	for (int i = 1; i <= inning; i++) {
-		cout << "-----|";
+		scoreboard += "-----|";
 	}
-	cout << "-----|-----|" << endl;
+	scoreboard += "-----|-----|\n";
 
-	cout << "  A  |  ";
+	scoreboard += "  A  |  ";
 	for (int i = 1; i <= inning; i++) {
-		cout << awaystats[i].runs << "  |  ";
+		scoreboard += to_string(awaystats[i].runs);
+		scoreboard += "  |  ";
 	}
-	cout << printTotalAwayRuns(inning) << "  |  "
-		<< printTotalAwayHits(inning) << "  |  " << endl;
+	scoreboard += to_string(printTotalAwayRuns(inning));
+	scoreboard += "  |  ";
+	scoreboard += to_string(printTotalAwayHits(inning));
+	scoreboard += "  |  \n";
 
-	cout << "-----|";
+	scoreboard += "-----|";
 	for (int i = 1; i <= inning; i++) {
-		cout << "-----|";
+		scoreboard += "-----|";
 	}
-	cout << "-----|-----|" << endl;
+	scoreboard += "-----|-----|\n";
 
-	cout << "  H  |  ";
+	scoreboard += "  H  |  ";
 	for (int i = 1; i <= inning; i++) {
-		cout << homestats[i].runs << "  |  ";
+		scoreboard += to_string(homestats[i].runs);
+		scoreboard += "  |  ";
 	}
-	cout << printTotalHomeRuns(inning) << "  |  "
-		<< printTotalHomeHits(inning) << "  |  " << endl;
+	scoreboard += to_string(printTotalHomeRuns(inning));
+	scoreboard += "  |  ";
+	scoreboard += to_string(printTotalHomeHits(inning));
+	scoreboard += "  |  \n";
+	
+	return scoreboard;
 }
 void Game::Home(int count) {
 	int i = count;
