@@ -221,7 +221,7 @@ void Game::ExtraInnings() {
 		while (printTotalAwayRuns(i) == printTotalHomeRuns(i)) {
 			if (i > 99) {
 				cout << "Maximum innings reached, stopping game.\n";
-				break;
+				return;
 			}
 
 			Away(i);
