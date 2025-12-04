@@ -13,15 +13,8 @@
 #include <fstream>
 using namespace std;
 
-struct Stats { // struct holding stat values
-	int outs = 0;
-	int hits = 0;
-	int runs = 0;
-};
-
 class Game { // class holding functions for entire baseball game
 public:
-	int inning = 0;
 	void Away(int count);
 	void Home(int count);
 	int printTotalAwayRuns(int count);
@@ -31,27 +24,32 @@ public:
 	void FirstNineInnings();
 	void ExtraInnings();
 	string printScoreboard();
+private:
+	struct Stats { // struct holding stat values
+		int outs = 0;
+		int hits = 0;
+		int runs = 0;
+	};
 	Stats homestats[99]; // array of structs to holds stats for home and away
 	Stats awaystats[99];
+	int inning = 0; // inning initialized to 0
 };
 
 int main() {
-	Game game; // Function calls
-	game.FirstNineInnings();
+	Game game; // object declaration
+	game.FirstNineInnings();// Function calls
 	game.ExtraInnings();
 	cout << game.printScoreboard();
 
 	ofstream outFile("scoreboard.txt");
-	if (outFile.is_open()) {
-		outFile << game.printScoreboard();
+	if (outFile.is_open()) { // File check
+		outFile << game.printScoreboard(); // Output to File
 		outFile.close();
 	}
 	else {
 		cout << "Error: unable to open file: scoreboard.txt" << endl;
 		return -1;
 	}
-	
-
 	return 0;
 }
 
@@ -101,12 +99,21 @@ string Game::printScoreboard() {
 	scoreboard += to_string(printTotalHomeHits(inning));
 	scoreboard += "  |  \n";
 	
-	return scoreboard;
+	return scoreboard; // prints scoreboard as a string
 }
 void Game::Home(int count) {
 	int i = count;
 	string userstring;
+	if (printTotalAwayRuns(9) < printTotalHomeRuns(9)) { // if statement ends game if away team fails to score in ninth
+		return;
+	}
 	while (homestats[i].outs != 3) {
+		if (i >= 10 && printTotalAwayRuns(i) < printTotalHomeRuns(i)) { // if statement ends game if home walks it off in extras
+			return;
+		}
+		if (i == 9 && printTotalAwayRuns(i) < printTotalHomeRuns(i)) { // if statement ends game if home walks it off in ninth
+			return;
+		}
 		cout << "What is the result of the next play in the bottom of inning #" << i << ": ";
 		getline(cin, userstring);
 		if (userstring == "out" || userstring == "Out") {
@@ -139,6 +146,7 @@ void Game::Home(int count) {
 			homestats[i].runs += runsScored;
 		}
 	}
+	return;
 }
 void Game::Away(int count) {
 	int i = count;
@@ -175,6 +183,7 @@ void Game::Away(int count) {
 			awaystats[i].runs += runsScored;
 		}
 	}
+	return;
 }
 int Game::printTotalAwayRuns(int count) {
 	int totalRunsAway = 0;
@@ -210,6 +219,7 @@ void Game::FirstNineInnings() {
 		Home(i);
 		inning = i;
 	}
+	return;
 }
 void Game::ExtraInnings() {
 	if (printTotalAwayRuns(9) != printTotalHomeRuns(9)) {
