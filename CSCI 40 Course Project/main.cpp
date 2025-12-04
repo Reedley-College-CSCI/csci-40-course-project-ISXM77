@@ -131,7 +131,7 @@ void Game::Home(int count) {
 			cin.ignore();
 			while (runsScored > 2) {
 				cout << "Too many, Try Again: ";
-				cin >> count;
+				cin >> runsScored;
 				cin.ignore();
 			}
 			homestats[i].runs += runsScored;
