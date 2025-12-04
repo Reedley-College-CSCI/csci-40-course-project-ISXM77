@@ -17,14 +17,14 @@ class Game { // class holding functions for entire baseball game
 public:
 	void Away(int count);
 	void Home(int count);
-	int printTotalAwayRuns(int count);
-	int printTotalHomeRuns(int count);
-	int printTotalAwayHits(int count);
-	int printTotalHomeHits(int count);
+	int printTotalAwayRuns(int count) const;
+	int printTotalHomeRuns(int count) const;
+	int printTotalAwayHits(int count) const;
+	int printTotalHomeHits(int count) const;
 	void FirstNineInnings();
 	void ExtraInnings();
-	string printScoreboard();
-	void printScoreboardToFile();
+	string printScoreboard() const;
+	void printScoreboardToFile() const;
 private:
 	struct Stats { // struct holding stat values
 		int outs = 0;
@@ -44,7 +44,7 @@ int main() {
 	game.printScoreboardToFile(); // Function outputs to File
 }
 
-string Game::printScoreboard() {
+string Game::printScoreboard() const{
 	string scoreboard = "     |  ";
 	for (int i = 1; i <= 9; i++) {
 		scoreboard += to_string(i);
@@ -176,28 +176,28 @@ void Game::Away(int count) {
 	}
 	return;
 }
-int Game::printTotalAwayRuns(int count) {
+int Game::printTotalAwayRuns(int count) const{
 	int totalRunsAway = 0;
 	for (int i = 1; i <= count; i++) {
 		totalRunsAway += awaystats[i].runs;
 	}
 	return totalRunsAway;
 }
-int Game::printTotalHomeRuns(int count) {
+int Game::printTotalHomeRuns(int count) const{
 	int totalRunsHome = 0;
 	for (int i = 1; i <= count; i++) {
 		totalRunsHome += homestats[i].runs;
 	}
 	return totalRunsHome;
 }
-int Game::printTotalAwayHits(int count) {
+int Game::printTotalAwayHits(int count) const{
 	int totalHitsAway = 0;
 	for (int i = 1; i <= count; i++) {
 		totalHitsAway += awaystats[i].hits;
 	}
 	return totalHitsAway;
 }
-int Game::printTotalHomeHits(int count) {
+int Game::printTotalHomeHits(int count) const{
 	int totalHitsHome = 0;
 	for (int i = 1; i <= count; i++) {
 		totalHitsHome += homestats[i].hits;
@@ -219,6 +219,11 @@ void Game::ExtraInnings() {
 	else {
 		int i = 10;
 		while (printTotalAwayRuns(i) == printTotalHomeRuns(i)) {
+			if (i > 99) {
+				cout << "Maximum innings reached, stopping game.\n";
+				break;
+			}
+
 			Away(i);
 			Home(i);
 			i++;
@@ -227,7 +232,7 @@ void Game::ExtraInnings() {
 		return;
 	}
 }
-void Game::printScoreboardToFile() {
+void Game::printScoreboardToFile() const{
 	ofstream outFile("scoreboard.txt");
 	if (outFile.is_open()) { // File check
 		outFile << printScoreboard();
