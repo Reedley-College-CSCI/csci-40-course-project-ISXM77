@@ -24,6 +24,7 @@ public:
 	void FirstNineInnings();
 	void ExtraInnings();
 	string printScoreboard();
+	void printScoreboardToFile();
 private:
 	struct Stats { // struct holding stat values
 		int outs = 0;
@@ -40,17 +41,7 @@ int main() {
 	game.FirstNineInnings();// Function calls
 	game.ExtraInnings();
 	cout << game.printScoreboard();
-
-	ofstream outFile("scoreboard.txt");
-	if (outFile.is_open()) { // File check
-		outFile << game.printScoreboard(); // Output to File
-		outFile.close();
-	}
-	else {
-		cout << "Error: unable to open file: scoreboard.txt" << endl;
-		return -1;
-	}
-	return 0;
+	game.printScoreboardToFile(); // Function outputs to File
 }
 
 string Game::printScoreboard() {
@@ -235,4 +226,16 @@ void Game::ExtraInnings() {
 		inning = i - 1;
 		return;
 	}
+}
+void Game::printScoreboardToFile() {
+	ofstream outFile("scoreboard.txt");
+	if (outFile.is_open()) { // File check
+		outFile << printScoreboard();
+		outFile.close();
+	}
+	else {
+		cout << "Error: unable to open file: scoreboard.txt" << endl;
+		return;
+	}
+	return;
 }
