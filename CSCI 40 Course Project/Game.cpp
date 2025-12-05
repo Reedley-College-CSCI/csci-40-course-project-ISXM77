@@ -192,6 +192,8 @@ int Game::printTotalHomeHits(int count) const {
 	return totalHitsHome;
 }
 void Game::FirstNineInnings() {
+	cout << "  Welcome to the Baseball Game Tracker\n";
+	cout << " Enter a number for one of the following\n";
 	for (int i = 1; i <= 9; i++) {
 		Away(i);
 		Home(i);
