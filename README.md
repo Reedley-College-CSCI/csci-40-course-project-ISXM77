@@ -47,12 +47,16 @@
 
 - Provide examples of test inputs (valid and invalid) and describe how your program responds.
 
-Test Case | Description |      Input          | Expected Output             |      Actual Output                 | Pass/Fail
-    TC-01 |     Out     |        1            | What is the result...       |  What is the result...             | P
-    TC-02 |     Walk    |       Walk          |             Enter a number between 1 and 5                       | P
-    TC-03 | Search Test |6th inning only score| Best away inning: 6 (1 runs)|Best away inning: 6 (1 runs)        | P
-    TC-04 | Sort Test   |1st inning only score| Homeinnings sorted by runs (descending order):Inning 1: 1 runs...| P
-    TC-05 | File Output | Walk off in 9th     |      scoreboard in file with 1 run scored in the 9th             | P
+| Test ID   | Description                                 | Input(s)                                       | Expected Output                                                    | Actual Output                                     | Pass/Fail |
+| --------- | ------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------- | --------- |
+| **TC-01** | out input correctly increments outs         | 1                                              | inning continues, outs increments by 1                             | behavior matches expected                         |  P        |
+| **TC-02** | invalid input handled                       | walk                                           | print: “Enter a number between 1 and 5” until valid input          | rejected invalid input and prompted again         |  P        |
+| **TC-03** | away team high-score inning search          | only inning 6 has scoring (1 run)              | print: “Best away inning: 6 (1 runs)”                              | output matches expected                           |  P        |
+| **TC-04** | sorted inning output                        | home scores in inning 1 only                   | sorted list starts with inning 1                                   | output begins with “Inning 1: 1 runs”             |  P        |
+| **TC-05** | walk-off logic ends game in 9th             | home takes lead in bottom of 9th               | home stops receiving prompts; game ends                            | behavior correct                                  |  P        |
+| **TC-06** | file output                                 | end game and open scoreboard.txt               | file contains scoreboard with correct inning totals                | correct file contents                             |  P        |
+| **TC-07** | extra innings trigger only when tied        | teams tied after 9 / input continues into 10th | away/home prompts for inning 10 appear                             | works as expected                                 |  P        |
+
 
 
 ## 4. Technical Walkthrough
