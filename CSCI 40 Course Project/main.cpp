@@ -16,7 +16,7 @@ int main() {
 	std::cout << game.printScoreboard() << std::endl;
 	game.printHighScoreInning(); // outputs highest scoring innings
 	game.printScoreboardToFile(); // Function outputs to File
-	game.printSortedInnings(false);
+	game.printSortedInnings(false); // outputs sorted innings
 	std::cout << std::endl;
 	game.printSortedInnings(true);
 	return 0;
