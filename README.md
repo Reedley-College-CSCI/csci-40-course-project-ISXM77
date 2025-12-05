@@ -47,42 +47,13 @@
 
 - Provide examples of test inputs (valid and invalid) and describe how your program responds.
 
+Test Case | Description |      Input          | Expected Output             |      Actual Output                 | Pass/Fail
+    TC-01 |     Out     |        1            | What is the result...       |  What is the result...             | P
+    TC-02 |     Walk    |       Walk          |     Runs Scored:            |       Runs Scored:                 | P
+    TC-03 | Search Test |6th inning only score| Best away inning: 6 (1 runs)|Best away inning: 6 (1 runs)        | P
+    TC-04 | Sort Test   |1st inning only score| Homeinnings sorted by runs (descending order):Inning 1: 1 runs...| P
+    TC-05 | File Output | Walk off in 9th     |      scoreboard in file with 1 run scored in the 9th             | P
 
-Invalid Input:
-
-PASS- Expected Output:
-- 1. Out | 2. Hit | 3. Walk | 4. HR | 5. HBP|
-
-What is the result of the next play in the top of inning #1: 11
-Enter a number between 1 and 5:
-
-Program correctly asked for valid input after invalid input of 11.
-
-FAIL:
-What is the result of the next play in the top of inning #1: 11
-What is the result of the next play in the top of inning #1:
-
-Program incorrectly does indicate that the invalid input was invalid
-
-Valid Input:
-
-PASS- Expected Output:
-- 1. Out | 2. Hit | 3. Walk | 4. HR | 5. HBP|
-
-What is the result of the next play in the top of inning #1: 1
-What is the result of the next play in the top of inning #1: 2
-Runs Scored: 0
-On Base: 1
-
-Program correctly prompt the user for runs scored and on base after inputting 2 for hit.
-
-FAIL:
-What is the result of the next play in the top of inning #1: 2
-What is the result of the next play in the top of inning #1:
-
-Program incorrectly does not prompt the user for runs scored or on base.
-
----
 
 ## 4. Technical Walkthrough
 - Explain the main functionality of your program.  
