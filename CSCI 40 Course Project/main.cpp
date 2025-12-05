@@ -11,6 +11,7 @@
 #include <string>
 #include <iomanip>
 #include <fstream>
+
 using namespace std;
 
 class Game { // class holding functions for entire baseball game
@@ -25,14 +26,20 @@ public:
 	void ExtraInnings();
 	string printScoreboard() const;
 	void printScoreboardToFile() const;
+	void menu();
+	int intRange(int lo, int hi);
+	int HighScoreInning(bool side) const;
+	void printHighScoreInning() const;
 private:
 	struct Stats { // struct holding stat values
 		int outs = 0;
 		int hits = 0;
 		int runs = 0;
+		int onbase = 0;
 	};
-	Stats homestats[99]; // array of structs to holds stats for home and away
-	Stats awaystats[99];
+	static constexpr int MAX_INNINGS = 100; // Maximum array size
+	Stats homestats[MAX_INNINGS]; // array of structs to holds stats for home and away
+	Stats awaystats[MAX_INNINGS];
 	int inning = 0; // inning initialized to 0
 };
 
@@ -40,8 +47,10 @@ int main() {
 	Game game; // object declaration
 	game.FirstNineInnings();// Function calls
 	game.ExtraInnings();
-	cout << game.printScoreboard();
+	cout << game.printScoreboard() << endl;
+	game.printHighScoreInning();
 	game.printScoreboardToFile(); // Function outputs to File
+
 }
 
 string Game::printScoreboard() const{
@@ -94,10 +103,9 @@ string Game::printScoreboard() const{
 }
 void Game::Home(int count) {
 	int i = count;
-	string userstring;
-	if (printTotalAwayRuns(9) < printTotalHomeRuns(9)) { // if statement ends game if away team fails to score in ninth
-		return;
-	}
+	int userInput;
+	int onBase;
+	if (count == 9 && printTotalAwayRuns(9) < printTotalHomeRuns(9)) return; // if statement ends game if away team fails to score in ninth
 	while (homestats[i].outs != 3) {
 		if (i >= 10 && printTotalAwayRuns(i) < printTotalHomeRuns(i)) { // if statement ends game if home walks it off in extras
 			return;
@@ -106,72 +114,82 @@ void Game::Home(int count) {
 			return;
 		}
 		cout << "What is the result of the next play in the bottom of inning #" << i << ": ";
-		getline(cin, userstring);
-		if (userstring == "out" || userstring == "Out") {
-			homestats[i].outs += 1;
-		}
-		else if (userstring == "hit" || userstring == "Hit") {
-			int runsScored;
+		userInput = intRange(1,5);
+		int runsScored;
+		switch (userInput) {
+
+		case 1: 
+			homestats[i].outs += 1; 
+			break;
+		case 2:
 			homestats[i].hits += 1;
 			cout << "Runs Scored: ";
-			cin >> runsScored;
-			cin.ignore();
-			while (runsScored > 4) {
-				cout << "Too many, Try Again: ";
-				cin >> runsScored;
-				cin.ignore();
-			}
+			runsScored = intRange(0, 4);
+			cout << "On Base: ";
+			onBase = intRange(0,3);
+			homestats[i].onbase = onBase;
 			homestats[i].runs += runsScored;
-
-		}
-		else if (userstring == "walk" || userstring == "Walk") {
-			int runsScored;
+			break;
+		case 3:
 			cout << "Runs Scored: ";
-			cin >> runsScored;
-			cin.ignore();
-			while (runsScored > 2) {
-				cout << "Too many, Try Again: ";
-				cin >> runsScored;
-				cin.ignore();
-			}
+			runsScored = intRange(0, 2);
 			homestats[i].runs += runsScored;
+			break;
+		case 4:
+			homestats[i].hits += 1;
+			runsScored = homestats[i].onbase + 1;
+			homestats[i].runs += runsScored;
+			homestats[i].onbase = 0;
+			onBase = 0;
+			break;
+		case 5:
+			cout << "Runs Scored: ";
+			runsScored = intRange(0, 2);
+			homestats[i].runs += runsScored;
+			break;
 		}
 	}
+	cout << endl;
 	return;
 }
 void Game::Away(int count) {
+	menu();
 	int i = count;
-	string userstring;
+	int userInput;
+	int onBase;
 	while (awaystats[i].outs != 3) {
 		cout << "What is the result of the next play in the top of inning #" << i << ": ";
-		getline(cin, userstring);
-		if (userstring == "out" || userstring == "Out") {
-			awaystats[i].outs += 1;
-		}
-		else if (userstring == "hit" || userstring == "Hit") {
-			int runsScored;
+		userInput = intRange(1,5);
+		int runsScored;
+		switch (userInput) {
+
+		case 1: awaystats[i].outs += 1; break;
+		case 2:
 			awaystats[i].hits += 1;
 			cout << "Runs Scored: ";
-			cin >> runsScored;
-			cin.ignore();
-			while (runsScored > 4) {
-				cout << "Too many, Try Again: ";
-				cin >> runsScored;
-				cin.ignore();
-			}
+			runsScored = intRange(0,4);
+			cout << "On Base: ";
+			onBase = intRange(0,3);
+			awaystats[i].onbase = onBase;
 			awaystats[i].runs += runsScored;
-		}
-		else if (userstring == "walk" || userstring == "Walk") {
-			int runsScored;
+			break;
+		case 3:
 			cout << "Runs Scored: ";
-			cin >> runsScored;
-			cin.ignore();
-			while (runsScored > 2) {
-				cout << "Too many, Try Again: ";
-				cin >> runsScored;
-				cin.ignore();
-			}
+			runsScored = intRange(0, 2);
 			awaystats[i].runs += runsScored;
+			break;
+		case 4:
+			awaystats[i].hits += 1;
+			runsScored = awaystats[i].onbase + 1;
+			awaystats[i].runs += runsScored;
+			awaystats[i].onbase = 0;
+			onBase = 0;
+			break;
+		case 5:
+			cout << "Runs Scored: ";
+			runsScored = intRange(0, 2);
+			awaystats[i].runs += runsScored;
+			break;
 		}
 	}
 	return;
@@ -220,7 +238,7 @@ void Game::ExtraInnings() {
 		int i = 10;
 		while (printTotalAwayRuns(i) == printTotalHomeRuns(i)) {
 			if (i > 99) {
-				cout << "Maximum innings reached, stopping game.\n";
+				cout << "Maximum innings reached, stopping game.\n";// end of array
 				return;
 			}
 
@@ -242,5 +260,44 @@ void Game::printScoreboardToFile() const{
 		cout << "Error: unable to open file: scoreboard.txt" << endl;
 		return;
 	}
+	return;
+}
+void Game::menu() {
+	cout << "1. Out | 2. Hit | 3. Walk | 4. HR | 5. HBP|\n"; // menu displayed to show options to user
+	cout << endl;
+	return;
+}
+int Game::intRange(int lo, int hi) {
+	int x;
+	while (true) {
+		if (cin >> x && x >= lo && x <= hi) return x;
+		cin.clear();
+		cin.ignore();
+		cout << "Enter a number between " << lo << " and " << hi << ": ";
+	}
+}
+int Game::HighScoreInning(bool side) const{
+	int best = 0;
+	int bestruns = -1;
+	for (int i = 1; i <= inning; ++i) { // linear search
+		int runs;
+		if (side) {
+			runs = homestats[i].runs;
+		}
+		else {
+			runs = awaystats[i].runs;
+		}
+		if (runs > bestruns) {
+			bestruns = runs;
+			best = i;
+		}
+	}
+	return best;
+}
+void Game::printHighScoreInning() const {
+	int bestAway = HighScoreInning(false);
+	int bestHome = HighScoreInning(true);
+	cout << "Best away inning: " << bestAway << " (" << awaystats[bestAway].runs << " runs)\n";
+	cout << "Best home inning: " << bestHome << " (" << homestats[bestHome].runs << " runs)\n";
 	return;
 }
