@@ -4,7 +4,7 @@
 ## 1. Overview
 - What problem does your project solve?  
 - My project solves the issue of having to manually keep track of a baseball game with traditional pen & paper
-- by allowing you easily keep track of the game using user input.
+- by allowing you to easily keep track of the game using user input.
 
 - Briefly describe the purpose and key features of your program. 
 - My program keeps track of key team statistics based off of user input throughout each inning of a baseball game, 

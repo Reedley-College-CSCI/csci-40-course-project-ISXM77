@@ -1,4 +1,4 @@
-// CSCI-40 Course Project
+// CSCI-40 Course Project - Baseball Game Tracker
 // Name: Issa Martinez
 
 // This Program keeps track of team statistics in a baseball
