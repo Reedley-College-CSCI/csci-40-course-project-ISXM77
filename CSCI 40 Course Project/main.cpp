@@ -275,7 +275,7 @@ int Game::intRange(int lo, int hi) {
 	while (true) {
 		if (cin >> x && x >= lo && x <= hi) return x;
 		cin.clear();
-		cin.ignore();
+		cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // will discard entire line
 		cout << "Enter a number between " << lo << " and " << hi << ": ";
 	}
 }
