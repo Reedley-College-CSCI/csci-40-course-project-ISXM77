@@ -49,7 +49,7 @@
 
 Test Case | Description |      Input          | Expected Output             |      Actual Output                 | Pass/Fail
     TC-01 |     Out     |        1            | What is the result...       |  What is the result...             | P
-    TC-02 |     Walk    |       Walk          |     Runs Scored:            |       Runs Scored:                 | P
+    TC-02 |     Walk    |       Walk          |             Enter a number between 1 and 5                       | P
     TC-03 | Search Test |6th inning only score| Best away inning: 6 (1 runs)|Best away inning: 6 (1 runs)        | P
     TC-04 | Sort Test   |1st inning only score| Homeinnings sorted by runs (descending order):Inning 1: 1 runs...| P
     TC-05 | File Output | Walk off in 9th     |      scoreboard in file with 1 run scored in the 9th             | P
