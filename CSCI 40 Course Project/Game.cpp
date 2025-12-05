@@ -90,7 +90,6 @@ void Game::Home(int count) {
 			cout << "On Base: ";
 			onBase = intRange(0, 3);
 			homestats[i].onbase = onBase;
-			homestats[i].runs += runsScored;
 			break;
 		case 4:
 			homestats[i].hits += 1;
@@ -106,7 +105,6 @@ void Game::Home(int count) {
 			cout << "On Base: ";
 			onBase = intRange(0, 3);
 			homestats[i].onbase = onBase;
-			homestats[i].runs += runsScored;
 			break;
 		}
 	}
@@ -141,7 +139,6 @@ void Game::Away(int count) {
 			cout << "On Base: ";
 			onBase = intRange(0, 3);
 			awaystats[i].onbase = onBase;
-			awaystats[i].runs += runsScored;
 			break;
 		case 4:
 			awaystats[i].hits += 1;
@@ -157,7 +154,6 @@ void Game::Away(int count) {
 			cout << "On Base: ";
 			onBase = intRange(0, 3);
 			awaystats[i].onbase = onBase;
-			awaystats[i].runs += runsScored;
 			break;
 		}
 	}
