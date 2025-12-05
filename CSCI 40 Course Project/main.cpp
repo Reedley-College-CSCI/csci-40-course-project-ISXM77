@@ -30,6 +30,7 @@ public:
 	int intRange(int lo, int hi);
 	int HighScoreInning(bool side) const;
 	void printHighScoreInning() const;
+	void printSortedInnings(bool side) const;
 private:
 	struct Stats { // struct holding stat values
 		int outs = 0;
@@ -48,9 +49,11 @@ int main() {
 	game.FirstNineInnings();// Function calls
 	game.ExtraInnings();
 	cout << game.printScoreboard() << endl;
-	game.printHighScoreInning();
+	game.printHighScoreInning(); // outputs highest scoring innings
 	game.printScoreboardToFile(); // Function outputs to File
-
+	game.printSortedInnings(false);
+	game.printSortedInnings(true);
+	return 0;
 }
 
 string Game::printScoreboard() const{
@@ -276,7 +279,7 @@ int Game::intRange(int lo, int hi) {
 		cout << "Enter a number between " << lo << " and " << hi << ": ";
 	}
 }
-int Game::HighScoreInning(bool side) const{
+int Game::HighScoreInning(bool side) const{ // true is home, false is away
 	int best = 0;
 	int bestruns = -1;
 	for (int i = 1; i <= inning; ++i) { // linear search
@@ -299,5 +302,44 @@ void Game::printHighScoreInning() const {
 	int bestHome = HighScoreInning(true);
 	cout << "Best away inning: " << bestAway << " (" << awaystats[bestAway].runs << " runs)\n";
 	cout << "Best home inning: " << bestHome << " (" << homestats[bestHome].runs << " runs)\n";
+	cout << endl;
+	return;
+}
+void Game::printSortedInnings(bool side) const { // true is home, false is away
+	int n = inning;
+	int runs[MAX_INNINGS];
+	int idx[MAX_INNINGS];
+	for (int i = 1; i <= n; ++i) {
+		if (side) {
+			runs[i] = homestats[i].runs;
+		}
+		else runs[i] = awaystats[i].runs;
+		idx[i] = i;
+	}
+	for (int i = 1; i <= n - 1; ++i) { // descending selection sort
+		int best = i;
+		for (int j = i + 1; j <= n; ++j) {
+			if (runs[j] > runs[best] || (runs[j] == runs[best] && idx[j] < idx[best])) {
+				best = j;
+			}
+		}
+		if (best != i) {
+			int temp = runs[i]; // swap runs and index
+			runs[i] = runs[best];
+			runs[best] = temp;
+			int tempI = idx[i];
+			idx[i] = idx[best];
+			idx[best] = tempI;
+		}
+	}
+
+	if (side) {
+		cout << "Home: ";
+	}
+	else cout << "Away: ";
+	cout << "innings sorted by runs (descending order): \n";
+	for (int i = 1; i <= n; ++i) {
+		cout << "Inning " << idx[i] << ": " << runs[i] << " runs\n";
+	}
 	return;
 }
